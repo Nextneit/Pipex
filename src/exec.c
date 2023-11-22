@@ -6,7 +6,7 @@
 /*   By: ncruz-ga <ncruz-ga@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/20 12:40:39 by ncruz-ga          #+#    #+#             */
-/*   Updated: 2023/11/20 15:38:25 by ncruz-ga         ###   ########.fr       */
+/*   Updated: 2023/11/20 16:13:37 by ncruz-ga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@ static void	child(int *fd, t_data *data)
 		msg_err("Command dup2");
 	if (execve(data->path[1], data->cmd[1], NULL) == -1)
 		msg_err("Command");
+	close(data->file2);
 }
 
 void	exec_cmd(t_data *data)

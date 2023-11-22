@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   pipex.c                                            :+:      :+:    :+:   */
+/*   pipex_bonus.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ncruz-ga <ncruz-ga@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/14 10:38:32 by ncruz-ga          #+#    #+#             */
-/*   Updated: 2023/11/22 15:08:35 by ncruz-ga         ###   ########.fr       */
+/*   Updated: 2023/11/22 15:09:13 by ncruz-ga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "pipex.h"
+#include "pipex_bonus.h"
 
 void	init_pipex(t_data *data)
 {
@@ -23,11 +23,12 @@ void	init_pipex(t_data *data)
 	data->path = NULL;
 	data->tmp = NULL;
 	data->tmp_path = NULL;
+	data->flag_doc = 0;
 }
 
 void	ft_leaks(void)
 {
-	system("leaks -q pipex");
+	system("leaks -q pipex_bonus");
 }
 
 int	split_env(char **env, t_data *data)
@@ -48,23 +49,18 @@ int	main(int argc, char **argv, char **env)
 
 	i = 0;
 	atexit(ft_leaks);
-	if (argc != 5)
-		return (ft_printf("Error: Numero de argumentos invalido"));
 	data = ft_calloc(1, sizeof(t_data));
 	if (!data)
 		return (EXIT_FAILURE);
 	init_pipex(data);
-	data->file = open(argv[1], O_RDONLY);
-	data->file2 = open(argv[4], O_WRONLY | O_CREAT | O_TRUNC, 0644);
-	if (data->file == -1 || data->file2 == -1)
-		return (close(data->file2), close(data->file2), free_all(data),
-			EXIT_FAILURE);
+	if (argc < chk_here_doc(data, argv[1]))
+		return (free_all(data), ft_printf("Numero de argumentos invalido"));
 	if (split_env(env, data) == 1)
 		return (EXIT_FAILURE);
 	if (get_commands(argc, argv, data) == 1)
 		return (free_all(data), EXIT_FAILURE);
 	if (chk_path(data, argc - 2) == 1)
 		return (free_all(data), EXIT_FAILURE);
-	exec_cmd(data);
+	exec_cmd(data, argv, argc);
 	return (free_all(data), EXIT_SUCCESS);
 }

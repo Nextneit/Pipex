@@ -1,19 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   pipex_utils.c                                      :+:      :+:    :+:   */
+/*   pipex_utils_bonus.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ncruz-ga <ncruz-ga@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/15 14:08:10 by ncruz-ga          #+#    #+#             */
-/*   Updated: 2023/11/22 15:05:58 by ncruz-ga         ###   ########.fr       */
+/*   Updated: 2023/11/22 14:52:14 by ncruz-ga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "pipex.h"
+#include "pipex_bonus.h"
 
-void	msg_err(char *str)
+void	msg_err(char *str, int here_doc)
 {
+	if (here_doc == 1)
+		unlink("here_doc.tmp");
 	perror(str);
 	exit(EXIT_FAILURE);
 }
@@ -29,6 +31,12 @@ void	free_all_2(t_data *data)
 			free(data->path[i++]);
 		free(data->path);
 	}
+	if (data->flag_doc)
+		unlink("here_doc.tmp");
+	close(data->file);
+	close(data->file2);
+	if (data->line != NULL)
+		free(data->line);
 }
 
 void	free_all(t_data *data)
@@ -37,14 +45,13 @@ void	free_all(t_data *data)
 	int	j;
 
 	i = 0;
-	j = 0;
 	if (data->env != NULL)
 	{
 		while (data->env[i] != NULL)
 			free(data->env[i++]);
 		free(data->env);
 	}
-	i = 0;
+	i = -1;
 	if (data->cmd != NULL)
 	{
 		while (data->cmd[++i] != NULL)
@@ -67,6 +74,8 @@ int	get_commands(int argc, char **argv, t_data *data)
 
 	i = 0;
 	j = 2;
+	if (data->flag_doc != 0)
+		j = 3;
 	data->cmd = ft_calloc(argc - 2, sizeof(char **));
 	if (!data->cmd)
 		return (EXIT_FAILURE);

@@ -6,15 +6,17 @@
 #    By: ncruz-ga <ncruz-ga@student.42malaga.com    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/11/20 15:43:12 by ncruz-ga          #+#    #+#              #
-#    Updated: 2023/11/20 15:59:57 by ncruz-ga         ###   ########.fr        #
+#    Updated: 2023/11/22 15:04:53 by ncruz-ga         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = pipex
 
+NAME_BONUS = pipex_bonus
+
 CC = gcc
 
-CFLAGS = -Wall -Werror -Wextra
+CFLAGS = -g -Wall -Werror -Wextra
 
 LIBFT_PATH = ./libft
 
@@ -22,11 +24,17 @@ LIBFT = $(LIBFT_PATH)/libft.a
 
 PIPEX = pipex.a
 
+PIPEX_BONUS = pipex_bonus.a
+
 LIB = ar rcs
 
-SRCS = src/pipex.c src/pipex_utils.c src/split_quotes.c src/exec.c
+SRCS = src/pipex.c src/pipex_utils.c src/exec.c src/split_quotes.c src/split_utils.c
 
 OBJS = $(SRCS:.c=.o)
+
+SRCS_BONUS = srcb/pipex_bonus.c srcb/pipex_utils_bonus.c srcb/here_doc.c srcb/exec_bonus.c srcb/split_quotes_bonus.c srcb/split_utils_bonus.c
+
+OBJS_BONUS = $(SRCS_BONUS:.c=.o)
 
 $(NAME):		$(OBJS) $(LIBFT)
 					@$(LIB) $(PIPEX) $(OBJS)
@@ -35,18 +43,27 @@ $(NAME):		$(OBJS) $(LIBFT)
 $(OBJS):		src/%.o : src/%.c
 					@$(CC) $(CFLAGS) -c $< -o $@
 
+$(NAME_BONUS):	$(OBJS_BONUS) $(LIBFT)
+				@$(LIB) $(PIPEX_BONUS) $(OBJS_BONUS)
+				@$(CC) $(CFLAGS) $(PIPEX_BONUS) $(LIBFT) -o $(NAME_BONUS)
+
 $(LIBFT):
 				@make -s -C $(LIBFT_PATH)
 
 all: $(NAME)
 
-clean:			@rm -f $(OBJS)
+bonus: $(NAME_BONUS)
+
+clean:			
+				@rm -f $(OBJS) $(OBJS_BONUS)
 				@make clean -s -C $(LIBFT_PATH)
 
-fclean:			@rm -f $(NAME) $(OBJS) $(LIBFT) $(PIPEX)
+fclean:			
+				@rm -f $(NAME) $(NAME_BONUS) $(OBJS) $(OBJS_BONUS) $(LIBFT) $(PIPEX) $(PIPEX_BONUS)
+				@make fclean -s -C $(LIBFT_PATH)
 
 re: fclean all
 
 pipe: all clean
 
-.PHONY: all re fclean bonus
+.PHONY: all re fclean clean bonus
