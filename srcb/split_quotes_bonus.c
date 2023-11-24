@@ -6,7 +6,7 @@
 /*   By: ncruz-ga <ncruz-ga@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/14 13:00:28 by ncruz-ga          #+#    #+#             */
-/*   Updated: 2023/11/22 14:39:06 by ncruz-ga         ###   ########.fr       */
+/*   Updated: 2023/11/23 12:57:23 by ncruz-ga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,7 @@ size_t	words_count(char *str, char d)
 	return (count);
 }
 
-int	word_length(char *str, char d, int flag, char c)
+static int	word_length(char *str, char d, int flag, char c)
 {
 	int		flag_quote[2];
 	char	aux;

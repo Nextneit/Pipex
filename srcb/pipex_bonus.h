@@ -6,7 +6,7 @@
 /*   By: ncruz-ga <ncruz-ga@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/14 10:32:08 by ncruz-ga          #+#    #+#             */
-/*   Updated: 2023/11/22 14:43:39 by ncruz-ga         ###   ########.fr       */
+/*   Updated: 2023/11/23 12:11:09 by ncruz-ga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,8 @@ typedef struct s_data
 	int		flag_doc;
 	char	*line;
 	int		fd;
+	int		pipe_fd[2];
+	pid_t	pid;
 }				t_data;
 
 int		split_env(char **env, t_data *data);
@@ -45,5 +47,6 @@ int		chk_here_doc(t_data *data, char *argv);
 void	here_doc(t_data *data, char **argv, int argc);
 char	**split_loop(char *s, char d);
 void	free_split_quotes(char **arr);
+void	create_pipe(t_data *data);
 
 #endif

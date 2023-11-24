@@ -6,11 +6,16 @@
 /*   By: ncruz-ga <ncruz-ga@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/14 10:38:32 by ncruz-ga          #+#    #+#             */
-/*   Updated: 2023/11/22 15:09:13 by ncruz-ga         ###   ########.fr       */
+/*   Updated: 2023/11/23 12:49:47 by ncruz-ga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pipex_bonus.h"
+
+/*void	ft_leaks(void)
+{
+	system("leaks -q pipex_bonus");
+}*/
 
 void	init_pipex(t_data *data)
 {
@@ -24,11 +29,7 @@ void	init_pipex(t_data *data)
 	data->tmp = NULL;
 	data->tmp_path = NULL;
 	data->flag_doc = 0;
-}
-
-void	ft_leaks(void)
-{
-	system("leaks -q pipex_bonus");
+	data->pid = 0;
 }
 
 int	split_env(char **env, t_data *data)
@@ -48,7 +49,6 @@ int	main(int argc, char **argv, char **env)
 	int		i;
 
 	i = 0;
-	atexit(ft_leaks);
 	data = ft_calloc(1, sizeof(t_data));
 	if (!data)
 		return (EXIT_FAILURE);

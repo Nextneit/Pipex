@@ -6,7 +6,7 @@
 /*   By: ncruz-ga <ncruz-ga@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/20 12:40:39 by ncruz-ga          #+#    #+#             */
-/*   Updated: 2023/11/22 12:29:49 by ncruz-ga         ###   ########.fr       */
+/*   Updated: 2023/11/24 12:08:18 by ncruz-ga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ static void	child(int *fd, t_data *data)
 	close(fd[0]);
 	if (dup2(fd[1], STDOUT_FILENO) == -1)
 		msg_err("Command dup2", data->flag_doc);
-	if (execve(data->path[1], data->cmd[1], NULL) == -1)
+	if (execve(data->path[data->i], data->cmd[data->i], NULL) == -1)
 		msg_err("Command", data->flag_doc);
 }
 
@@ -52,21 +52,16 @@ static void	father(int *fd, pid_t pid, t_data *data)
 
 void	exec_cmd(t_data *data, char **argv, int argc)
 {
-	pid_t	pid;
-	int		fd[2];
-
 	check_f_doc(data, argv, argc);
 	if (dup2(data->file, STDIN_FILENO) == -1)
 		msg_err("file", data->flag_doc);
 	data->i = -1;
 	while (data->cmd[++data->i] != NULL)
 	{
-		if (pipe(fd) == -1)
-			msg_err("pipe", data->flag_doc);
-		pid = fork();
-		if (pid == -1)
+		create_pipe(data);
+		if (data->pid == -1)
 			msg_err("fork", data->flag_doc);
-		if (pid == 0)
+		if (data->pid == 0)
 		{
 			if (data->cmd[data->i + 1] == NULL)
 			{
@@ -76,9 +71,9 @@ void	exec_cmd(t_data *data, char **argv, int argc)
 					msg_err("exec", data->flag_doc);
 				break ;
 			}
-			child(fd, data);
+			child(data->pipe_fd, data);
 		}
 		else
-			father(fd, pid, data);
+			father(data->pipe_fd, data->pid, data);
 	}
 }

@@ -6,7 +6,7 @@
 #    By: ncruz-ga <ncruz-ga@student.42malaga.com    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/11/20 15:43:12 by ncruz-ga          #+#    #+#              #
-#    Updated: 2023/11/22 15:04:53 by ncruz-ga         ###   ########.fr        #
+#    Updated: 2023/11/23 12:21:18 by ncruz-ga         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -32,7 +32,7 @@ SRCS = src/pipex.c src/pipex_utils.c src/exec.c src/split_quotes.c src/split_uti
 
 OBJS = $(SRCS:.c=.o)
 
-SRCS_BONUS = srcb/pipex_bonus.c srcb/pipex_utils_bonus.c srcb/here_doc.c srcb/exec_bonus.c srcb/split_quotes_bonus.c srcb/split_utils_bonus.c
+SRCS_BONUS = srcb/pipex_bonus.c srcb/pipex_utils_bonus.c srcb/here_doc_bonus.c srcb/exec_bonus.c srcb/split_quotes_bonus.c srcb/split_utils_bonus.c srcb/exec_utils_bonus.c
 
 OBJS_BONUS = $(SRCS_BONUS:.c=.o)
 
