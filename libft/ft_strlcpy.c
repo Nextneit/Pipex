@@ -1,23 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   split_utils.c                                      :+:      :+:    :+:   */
+/*   ft_strlcpy.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ncruz-ga <ncruz-ga@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/11/22 14:38:22 by ncruz-ga          #+#    #+#             */
-/*   Updated: 2024/08/20 12:30:20 by ncruz-ga         ###   ########.fr       */
+/*   Created: 2023/04/22 16:39:35 by ncruz-ga          #+#    #+#             */
+/*   Updated: 2024/08/20 11:49:24 by ncruz-ga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "pipex.h"
+#include "libft.h"
 
-char	**split_quotes(char *env, char c)
+size_t	ft_strlcpy(char *dst, const char *src, size_t dstsize)
 {
-	char	**arr;
+	size_t	i;
 
-	arr = split_loop(env, c);
-	if (!arr)
-		return (free_split_quotes(arr), NULL);
-	return (arr);
+	i = 0;
+	if (dstsize != 0)
+	{
+		while (src[i] && i < dstsize -1)
+		{
+			dst[i] = src[i];
+			i++;
+		}
+		dst[i] = '\0';
+	}
+	return (ft_strlen(src));
 }

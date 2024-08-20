@@ -1,23 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   split_utils.c                                      :+:      :+:    :+:   */
+/*   ft_strjoin.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ncruz-ga <ncruz-ga@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/11/22 14:38:22 by ncruz-ga          #+#    #+#             */
-/*   Updated: 2024/08/20 12:30:20 by ncruz-ga         ###   ########.fr       */
+/*   Created: 2023/04/26 18:05:04 by ncruz-ga          #+#    #+#             */
+/*   Updated: 2024/08/20 11:49:16 by ncruz-ga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "pipex.h"
+#include "libft.h"
 
-char	**split_quotes(char *env, char c)
+char	*ft_strjoin(char const *s1, char const *s2)
 {
-	char	**arr;
+	size_t	size;
+	char	*s3;
 
-	arr = split_loop(env, c);
-	if (!arr)
-		return (free_split_quotes(arr), NULL);
-	return (arr);
+	size = ft_strlen(s1) + ft_strlen(s2);
+	s3 = (char *)malloc(size + 1);
+	if (!s3)
+		return (0);
+	ft_memcpy(s3, s1, ft_strlen(s1));
+	ft_memcpy(s3 + ft_strlen(s1), s2, ft_strlen(s2) + 1);
+	return (s3);
 }

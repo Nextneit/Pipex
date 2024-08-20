@@ -1,23 +1,36 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   split_utils.c                                      :+:      :+:    :+:   */
+/*   ft_memmove.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ncruz-ga <ncruz-ga@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/11/22 14:38:22 by ncruz-ga          #+#    #+#             */
-/*   Updated: 2024/08/20 12:30:20 by ncruz-ga         ###   ########.fr       */
+/*   Created: 2023/04/22 16:18:23 by ncruz-ga          #+#    #+#             */
+/*   Updated: 2024/08/20 11:47:19 by ncruz-ga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "pipex.h"
+#include "libft.h"
 
-char	**split_quotes(char *env, char c)
+void	*ft_memmove(void *dst, const void *src, size_t len)
 {
-	char	**arr;
+	char	*dst1;
+	char	*src1;
 
-	arr = split_loop(env, c);
-	if (!arr)
-		return (free_split_quotes(arr), NULL);
-	return (arr);
+	dst1 = (char *)dst;
+	src1 = (char *)src;
+	if (!dst && !src)
+		return (dst);
+	if (dst > src)
+	{
+		while (len--)
+		{
+			dst1[len] = src1[len];
+		}
+	}
+	else
+	{
+		ft_memcpy(dst, src, len);
+	}
+	return (dst);
 }

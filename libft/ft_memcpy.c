@@ -1,23 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   split_utils.c                                      :+:      :+:    :+:   */
+/*   ft_memcpy.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ncruz-ga <ncruz-ga@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/11/22 14:38:22 by ncruz-ga          #+#    #+#             */
-/*   Updated: 2024/08/20 12:30:20 by ncruz-ga         ###   ########.fr       */
+/*   Created: 2023/04/21 17:56:31 by ncruz-ga          #+#    #+#             */
+/*   Updated: 2024/08/20 11:47:15 by ncruz-ga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "pipex.h"
+#include "libft.h"
 
-char	**split_quotes(char *env, char c)
+void	*ft_memcpy(void *dst, const void *src, size_t n)
 {
-	char	**arr;
+	size_t		count;
+	char		*dest;
+	char		*srce;
 
-	arr = split_loop(env, c);
-	if (!arr)
-		return (free_split_quotes(arr), NULL);
-	return (arr);
+	if (!src && !dst)
+		return (0);
+	count = 0;
+	dest = (char *)dst;
+	srce = (char *)src;
+	while (count < n)
+	{
+		dest[count] = (char)srce[count];
+		count++;
+	}
+	return (dst);
 }

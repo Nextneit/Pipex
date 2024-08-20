@@ -1,23 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   split_utils.c                                      :+:      :+:    :+:   */
+/*   ft_lstclear_bonus.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ncruz-ga <ncruz-ga@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/11/22 14:38:22 by ncruz-ga          #+#    #+#             */
-/*   Updated: 2024/08/20 12:30:20 by ncruz-ga         ###   ########.fr       */
+/*   Created: 2023/05/04 13:14:14 by ncruz-ga          #+#    #+#             */
+/*   Updated: 2024/08/20 11:45:50 by ncruz-ga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "pipex.h"
+#include "libft.h"
 
-char	**split_quotes(char *env, char c)
+void	ft_lstclear(t_list **lst, void (*del)(void *))
 {
-	char	**arr;
+	t_list	*actual;
 
-	arr = split_loop(env, c);
-	if (!arr)
-		return (free_split_quotes(arr), NULL);
-	return (arr);
+	actual = *lst;
+	if (!lst || !del)
+		return ;
+	while ((*lst))
+	{
+		del ((*lst)->content);
+		actual = *lst;
+		*lst = actual->next;
+		free(actual);
+	}
+	lst = 0;
 }

@@ -1,23 +1,39 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   split_utils.c                                      :+:      :+:    :+:   */
+/*   ft_printdec.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ncruz-ga <ncruz-ga@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/11/22 14:38:22 by ncruz-ga          #+#    #+#             */
-/*   Updated: 2024/08/20 12:30:20 by ncruz-ga         ###   ########.fr       */
+/*   Created: 2023/07/20 11:01:00 by ncruz-ga          #+#    #+#             */
+/*   Updated: 2024/08/20 11:47:32 by ncruz-ga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "pipex.h"
+#include "libft.h"
 
-char	**split_quotes(char *env, char c)
+int	ft_printdec(long long int n)
 {
-	char	**arr;
+	int		count;
+	char	c;
 
-	arr = split_loop(env, c);
-	if (!arr)
-		return (free_split_quotes(arr), NULL);
-	return (arr);
+	count = 0;
+	if (n < 0)
+	{
+		count += ft_putchar('-');
+		if (count == -1)
+			return (-1);
+		n = -n;
+	}
+	if (n > 9)
+	{
+		count += ft_printdec(n / 10);
+		if (count == -1)
+			return (-1);
+	}
+	c = n % 10 + '0';
+	count += ft_putchar(c);
+	if (count == -1)
+		return (-1);
+	return (count);
 }

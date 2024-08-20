@@ -3,19 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   pipex.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ncruz-ga <ncruz-ga@student.42malaga.com    +#+  +:+       +#+        */
+/*   By: ncruz-ga <ncruz-ga@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/14 10:38:32 by ncruz-ga          #+#    #+#             */
-/*   Updated: 2023/11/23 10:28:17 by ncruz-ga         ###   ########.fr       */
+/*   Updated: 2024/08/20 12:29:48 by ncruz-ga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pipex.h"
-
-/*void	ft_leaks(void)
-{
-	system("leaks -q pipex");
-}*/
 
 void	init_pipex(t_data *data)
 {
